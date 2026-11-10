@@ -1,6 +1,6 @@
 ---
 deployment:
-  -tasks:
+  tasks:
     - export DEPLOYPATH=/home/sportwor/public_html
     - /bin/mkdir -p $DEPLOYPATH
     - /bin/cp -R dist/. $DEPLOYPATH/
