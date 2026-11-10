@@ -38,7 +38,27 @@ Since cPanel cannot run `npm build` by default, you must generate the `dist` fol
 - **Database**: Your MySQL database is safe on the server and is never touched by the Git deployment process.
 - **`.htaccess`**: Handles all routing for both React and PHP automatically.
 
-## 6. Local Development Helper
+## 6. Troubleshooting Deployment Errors
+
+### Error: "Ensure no uncommitted changes exist"
+If cPanel refuses to deploy because of "uncommitted changes", it means someone edited files directly inside the repository folder on the server.
+**Fix:**
+1. Open **cPanel Terminal**.
+2. Navigate to your repository folder:
+   ```bash
+   cd /home/$(whoami)/repositories/relpay
+   ```
+3. Reset the state:
+   ```bash
+   git reset --hard HEAD
+   git clean -fd
+   ```
+4. Try deploying again from the cPanel UI.
+
+### Error: ".cpanel.yml invalid syntax"
+Ensure your `.cpanel.yml` starts with three dashes `---` and uses valid indentation. We have refined the file for you to be as simple as possible.
+
+## 7. Local Development Helper
 Use the provided `deploy_cpanel.sh` script to quickly prepare your code for the next push:
 ```bash
 chmod +x deploy_cpanel.sh
