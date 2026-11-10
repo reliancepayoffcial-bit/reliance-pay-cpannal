@@ -171,7 +171,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, settings =
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         {/* The Building Background from Reference Asset */}
         <img 
-          src="/assets/aistudio/file_00000000e63c81f5b23df2c0dd1210dd_6260351e.png" 
+          src="./assets/aistudio/file_00000000e63c81f5b23df2c0dd1210dd_6260351e.png" 
           alt="Reliance Corporate Architecture" 
           className="w-full h-full object-cover object-center filter brightness-[1.08] contrast-[1.01]"
         />
@@ -219,9 +219,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, settings =
           <div className="mb-4 transition-transform duration-300 hover:scale-105">
             <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white p-1 shadow-[0_8px_25px_rgba(30,96,242,0.35)] border-2 border-blue-500/20 overflow-hidden flex items-center justify-center">
               <img 
-                src="/assets/aistudio/IMG_20261104_200732_1c2792a8.png" 
+                src="./assets/reliance_pay_header_logo.png" 
                 alt="Reliance Pay" 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>
@@ -229,7 +229,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, settings =
           {/* Reliance Pay 3D Glossy Pill Badge */}
           <div className="mb-2 shadow-[0_6px_25px_rgba(225,29,42,0.35)] rounded-full transition-transform duration-200 hover:scale-[1.02]">
             <img 
-              src="/assets/reliance_pay_pill_badge.png" 
+              src="./assets/reliance_pay_pill_badge.png" 
               alt="Reliance Pay" 
               className="h-9 sm:h-10 w-auto object-contain"
             />

@@ -3,7 +3,7 @@ import {
   ShieldAlert, Users, TrendingUp, ArrowDownRight, ArrowUpRight, 
   FileText, Settings, Gift, Image as ImageIcon, CheckCircle, XCircle, Trash2, Plus, Search, RefreshCw,
   Sliders, ShieldCheck, Check, DollarSign, AlertCircle, Edit, Eye, AlertTriangle, Zap, Volume2, Clock,
-  Database, Key, User as UserIcon, X, ChevronRight, Bot, Headphones, MessageSquare, Send, LogOut, Download
+  Database, Key, User as UserIcon, X, ChevronRight, Bot, Headphones, MessageSquare, Send, LogOut
 } from 'lucide-react';
 import { AdminStats, User, Deposit, Withdrawal, KycEntry, Plan, Banner } from '../types';
 
@@ -646,48 +646,6 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ adminUser, showToast, on
                 {stats.pendingDeposits + stats.pendingWithdrawals + stats.pendingKyc}
               </h3>
               <p className="text-xs text-amber-600 font-semibold mt-1">Requires review</p>
-            </div>
-          </div>
-
-          {/* cPanel Production Deployment Package Box */}
-          <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 rounded-3xl p-6 shadow-xl border border-blue-700/40 text-white relative overflow-hidden">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
-              <div>
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold mb-2">
-                  <Database className="w-3.5 h-3.5" />
-                  <span>Production Ready Archive (PHP 8.1+ & MySQL)</span>
-                </div>
-                <h3 className="text-xl font-black text-white">reliance-pay-final-cpanel.zip</h3>
-                <p className="text-xs text-slate-300 mt-1 max-w-xl">
-                  Contains all 227 verified production files, compiled React SPA, master PHP REST controller, interactive web installer, 16 MySQL tables, and .htaccess rules.
-                </p>
-                <div className="flex items-center space-x-4 text-[11px] text-blue-200 mt-2 font-mono">
-                  <span>Size: 121.82 MB</span>
-                  <span>•</span>
-                  <span>SHA-256: 264f29c3...528aa</span>
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-                <a
-                  href="/reliance-pay-final-cpanel.zip"
-                  download="reliance-pay-final-cpanel.zip"
-                  className="flex-1 md:flex-none flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg shadow-blue-600/40 transition active:scale-95 cursor-pointer text-sm"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>Download Final ZIP</span>
-                </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const fullUrl = `${window.location.origin}/reliance-pay-final-cpanel.zip`;
-                    navigator.clipboard.writeText(fullUrl);
-                    showToast('Download link copied to clipboard!', 'success');
-                  }}
-                  className="px-4 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold border border-white/20 transition cursor-pointer"
-                >
-                  Copy Direct Link
-                </button>
-              </div>
             </div>
           </div>
         </div>

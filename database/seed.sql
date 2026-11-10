@@ -41,9 +41,8 @@ INSERT INTO `plans` (`name`, `category`, `amount`, `duration_days`, `claim_inter
 ('ULTRA MEGA THERMAL CORE VVIP', 'VIP Elite', 20000.00, 20, 12, 6600.00, 3300.00, 40, 132000.00, 'Executive energy dividend sharing pool with accelerated pay rates.', '/public/assets/aistudio/file_00000000650c81fdb97432eea241cd83_9a570f4c.png', 0, 'active');
 
 INSERT INTO `banners` (`title`, `image_url`, `link_url`, `sort_order`, `status`) VALUES
-('Reliance Industry Investment - High Profit', '/public/assets/aistudio/IMG_20260926_124927_b5f9e492.png', '#plans', 1, 'active'),
-('Reliance Pay Official Team - Har Bhugtan Ab Aasan', '/public/assets/aistudio/file_00000000276c81fa8ee7ba63afc318b1_b8b36460.png', '#support', 2, 'active'),
-('Reliance Gigawatt Flash Core 2.1', '/public/assets/aistudio/file_00000000650c81fdb97432eea241cd83_9a570f4c.png', '#plans', 3, 'active'),
-('Jio Reliance Industries (JRIL) 350% ROI', '/public/assets/aistudio/file_00000000d91082108254f27654b69bad_de478902.png', '#plans', 4, 'active'),
-('Nayara Fuel Energy Station (NFES) 750% ROI', '/public/assets/aistudio/file_00000000caf481fab640fb1171314240_9b4d8723.png', '#plans', 5, 'active'),
-('Nayara Energy High Return 420% ROI', '/public/assets/aistudio/file_00000000ff9c81fa999c411a38489203_1885616d.png', '#plans', 6, 'active');
+('Recharge Rewards', '/public/assets/aistudio/banner1.jpg', '#plans', 1, 'active'),
+('Invite & Earn', '/public/assets/aistudio/banner2.jpg', '#referral', 2, 'active'),
+('Reliance Industries', '/public/assets/aistudio/Reliance.webp', '#plans', 3, 'active'),
+('Special Offer', '/public/assets/aistudio/banner3.jpg', '#plans', 4, 'active'),
+('Promotional Image', '/public/assets/aistudio/image_76d94075.jpg', '#plans', 5, 'active');

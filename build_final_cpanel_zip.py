@@ -52,6 +52,9 @@ def build_zip():
         for f in files:
             if f in EXCLUDE_FILES or f.endswith('.tmp') or f.endswith('.db') or f.endswith('.bak') or f.endswith('.zip'):
                 continue
+            # Exclude user chat attachment screenshots from prompt interactions
+            if f.startswith('Screenshot_') and (f.endswith('.jpg') or f.endswith('.png')):
+                continue
             full_path = os.path.join(current_root, f)
             rel_path = os.path.relpath(full_path, root_dir)
 
@@ -70,6 +73,8 @@ def build_zip():
     # 3. Ensure all dist assets are mapped into assets/
     if os.path.exists('dist/assets'):
         for f in os.listdir('dist/assets'):
+            if f.startswith('Screenshot_') and (f.endswith('.jpg') or f.endswith('.png')):
+                continue
             src_f = os.path.join('dist/assets', f)
             if os.path.isfile(src_f):
                 files_to_pack[f'assets/{f}'] = os.path.abspath(src_f)
