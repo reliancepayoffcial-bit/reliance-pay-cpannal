@@ -1,12 +1,28 @@
 ---
 deployment:
-  tasks:
-    - export DEPLOYPATH=/home/sportwor/public_html
-    - /bin/mkdir -p $DEPLOYPATH
-    - /bin/cp -R dist/. $DEPLOYPATH/
-    - /bin/mkdir -p $DEPLOYPATH/api
-    - /bin/cp -R api/. $DEPLOYPATH/api/
-    - /bin/mkdir -p $DEPLOYPATH/install
-    - /bin/cp -R install/. $DEPLOYPATH/install/
-    - /bin/cp .htaccess $DEPLOYPATH/
-    - /bin/cp manifest.webmanifest $DEPLOYPATH/
+tasks:
+
+export DEPLOYPATH=/home/sportwor/public_html
+
+/bin/mkdir -p $DEPLOYPATH
+
+/bin/cp -R dist/. $DEPLOYPATH/
+
+/bin/mkdir -p $DEPLOYPATH/api
+
+/bin/cp -R api/. $DEPLOYPATH/api/
+
+/bin/mkdir -p $DEPLOYPATH/install
+
+/bin/cp -R install/. $DEPLOYPATH/install/
+
+/bin/mkdir -p $DEPLOYPATH/public
+
+/bin/cp -R public/. $DEPLOYPATH/public/
+
+/bin/cp .htaccess $DEPLOYPATH/
+
+/bin/cp manifest.webmanifest $DEPLOYPATH/
+
+
+Es kode ko update kr ra hu na
