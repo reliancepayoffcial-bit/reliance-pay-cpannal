@@ -1,0 +1,6 @@
+{
+  "name": "Reliance Pay",
+  "description": "Production-oriented mobile-first fintech web application with user dashboard, investment plans, wallet, deposits, withdrawals, daily check-in, scratch cards, KYC, and admin control panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

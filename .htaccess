@@ -1,0 +1,41 @@
+# Reliance Pay - Apache / LiteSpeed .htaccess Config for cPanel
+# Handles SPA HTML5 Routing, PHP API Routing, and Security Restrictions
+
+RewriteEngine On
+
+# 1. Protect Sensitive Files & Directories
+RewriteRule ^config/ - [F,L]
+RewriteRule ^database/ - [F,L]
+RewriteRule ^install/install\.lock$ - [F,L]
+<FilesMatch "\.(sql|log|env|db|bak|md|json|sh)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 2. Allow Direct Access to Public Assets & Install Wizard
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 3. Route API Requests to PHP Master Controller
+RewriteRule ^api/(.*)$ api/index.php [QSA,L]
+
+# 4. Single Page Application (SPA) Fallback
+RewriteRule ^ index.html [L]
+
+# 5. MIME Types & Caching
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest
+    AddType image/webp .webp
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Reliance Pay - Official Fintech & High-Yield Investment Platform</title>
+    <meta name="description" content="Reliance Pay Official Web App: Secure Asset Wallet, Automated 12-Hour Dividend Distribution, Fast UPI Recharges, and Instant Bank Withdrawals." />
+    <meta property="og:title" content="Reliance Pay - Official Fintech & High-Yield Investment Platform" />
+    <meta property="og:description" content="Reliance Pay Official Web App: Secure Asset Wallet, Automated 12-Hour Dividend Distribution, Fast UPI Recharges, and Instant Bank Withdrawals." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/pwa-512x512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- PWA Settings -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#0A0F1D" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Reliance Pay" />
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <script>
+      (function() {
+        // Intercept console.error for harmless Vite dev server HMR websocket notifications in cloud sandbox
+        const _origConsoleError = console.error;
+        console.error = function(...args) {
+          const match = args.some(function(arg) {
+            if (!arg) return false;
+            const str = (arg.message || arg.stack || String(arg));
+            return str.includes('WebSocket closed without opened') || (str.includes('[vite]') && str.includes('WebSocket'));
+          });
+          if (match) return;
+          _origConsoleError.apply(console, args);
+        };
+
+        // Intercept window errors & unhandled rejections
+        window.addEventListener('error', function(e) {
+          const msg = (e && (e.message || (e.error && e.error.message))) || '';
+          const file = (e && e.filename) || '';
+          if (msg.includes('WebSocket') || file.includes('@vite/client') || msg.includes('[vite]')) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            return true;
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function(e) {
+          const reason = (e && e.reason && (e.reason.message || e.reason.stack || String(e.reason))) || '';
+          if (reason.includes('WebSocket') || reason.includes('@vite/client') || reason.includes('[vite]')) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+  </head>
+  <body class="bg-[#0A0F1D] text-white selection:bg-blue-600 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
