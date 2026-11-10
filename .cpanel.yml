@@ -1,17 +1,12 @@
 ---
 deployment:
   tasks:
-    - /bin/cp -R dist/* /home/$(whoami)/public_html/
-    - /bin/mkdir -p /home/$(whoami)/public_html/api
-    - /bin/cp -R api/* /home/$(whoami)/public_html/api/
-    - /bin/mkdir -p /home/$(whoami)/public_html/config
-    - /bin/cp config/database.php.example /home/$(whoami)/public_html/config/database.php.example
-    - /bin/mkdir -p /home/$(whoami)/public_html/database
-    - /bin/cp -R database/* /home/$(whoami)/public_html/database/
-    - /bin/mkdir -p /home/$(whoami)/public_html/install
-    - /bin/cp -R install/* /home/$(whoami)/public_html/install/
-    - /bin/cp .htaccess /home/$(whoami)/public_html/
-    - /bin/cp manifest.webmanifest /home/$(whoami)/public_html/
-    - /bin/cp favicon.ico /home/$(whoami)/public_html/
-    - /bin/cp apple-touch-icon.png /home/$(whoami)/public_html/
-    - /bin/chmod 755 /home/$(whoami)/public_html/
+    - export DEPLOYPATH=/home/sportwor/public_html
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R dist/. $DEPLOYPATH/
+    - /bin/mkdir -p $DEPLOYPATH/api
+    - /bin/cp -R api/. $DEPLOYPATH/api/
+    - /bin/mkdir -p $DEPLOYPATH/install
+    - /bin/cp -R install/. $DEPLOYPATH/install/
+    - /bin/cp .htaccess $DEPLOYPATH/
+    - /bin/cp manifest.webmanifest $DEPLOYPATH/
