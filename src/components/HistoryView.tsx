@@ -191,7 +191,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ user, showToast }) => 
 
                   <div className="text-right">
                     <p className={`text-sm font-black ${isPositive ? 'text-emerald-400' : 'text-blue-400'}`}>
-                      {isPositive ? '+' : '-'}₹{tx.amount.toFixed(2)}
+                      {isPositive ? '+' : '-'}₹{Number(tx.amount || 0).toFixed(2)}
                     </p>
                     <span className={`inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[9px] font-bold mt-1 ${
                       tx.status === 'approved' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' :

@@ -1,60 +1,50 @@
-# 🚀 RELIANCE PAY - cPanel Zip Upload & Auto-Database Deployment Guide
+# Reliance Pay - GitHub to Hostinger cPanel Deployment Guide
 
-यह गाइड आपको सिखाती है कि कैसे cPanel के **`public_html`** फोल्डर में ZIP फाइल अपलोड करके, एक्सट्रेक्ट (Extract) करके बिना किसी परेशानी के Reliance Pay एप्लीकेशन और इसके डेटाबेस (Data Page/Database) को 100% लाइव चलाएं।
+This repository is pre-configured for automated deployment to Hostinger cPanel using the official **cPanel Git Version Control** tool.
 
----
+## 1. Prerequisites
+- Hostinger cPanel account.
+- Domain pointing to your Hostinger server.
+- GitHub repository with this code.
 
-## 📦 step 1: Zip File तैयार करें (Zip Package Creation)
-अपनी कंप्यूटर या प्रोजेक्ट निर्देशिका में निम्नलिखित फाइलों/फोल्डर्स को सेलेक्ट करें और **`reliance_pay_cpanel.zip`** नाम से एक Zip फाइल बनाएं:
+## 2. Repository Preparation
+We have added a `.cpanel.yml` file which tells cPanel how to move files from the repo to your `public_html`.
 
-- `dist/` (फोल्डर) - (React Front-end Static Build)
-- `server.js` - (Compiled Node.js Express Backend)
-- `package.json` - (Dependencies File)
-- `public/` - (Banners & Assets)
-- `reliance_pay.db` - *(ऐच्छिक/Optional - अगर यह नहीं होगा तो ऐप खुद नया डेटाबेस बना लेगी)*
+### Step A: Build the Frontend
+Since cPanel cannot run `npm build` by default, you must generate the `dist` folder on your local machine before pushing.
+1. Run `./deploy_cpanel.sh` (or `npm run build:cpanel`).
+2. **Commit the `dist` folder** to GitHub. 
+   *(Note: While committing build artifacts is generally avoided, it is the standard path for cPanel Git integration without complex CI/CD).*
 
----
+## 3. Setup cPanel Git Version Control
+1. Log in to your **cPanel**.
+2. Go to **Git™ Version Control** (under Files).
+3. Click **Create**.
+4. Set **Clone URL** to your GitHub Repository URL (e.g., `https://github.com/user/reliance-pay.git`).
+5. Set **Repository Path** (e.g., `/home/u123/repositories/relpay`).
+6. Set **Deployment Branch** to `main`.
+7. Click **Create**.
 
-## 📂 Step 2: cPanel `public_html` में Zip Upload & Extract करें
-1. अपना **cPanel** डैशबोर्ड खोलें और **File Manager** पर क्लिक करें।
-2. बाएँ हाथ से **`public_html`** (या अपने सबडोमेन के फोल्डर) में जाएँ।
-3. ऊपर दिए गए **Upload** बटन पर क्लिक करें और **`reliance_pay_cpanel.zip`** फाइल अपलोड करें।
-4. अपलोड पूरा होने पर वापस `public_html` में आएं।
-5. `reliance_pay_cpanel.zip` पर राइट क्लिक (Right Click) करें और **Extract** पर क्लिक करके ओके करें।
-6. सभी फाइलें `public_html` में बाहर निकल (Extract हो) जाएंगी।
+## 4. Deploy to public_html
+1. Once created, click **Manage** next to the repository.
+2. Go to the **Pull or Deploy** tab.
+3. Click **Update from Remote** (to pull latest code from GitHub).
+4. Click **Deploy HEAD Commit**.
+   - This triggers the tasks in `.cpanel.yml`.
+   - Your compiled React app and PHP backend will be moved to `public_html`.
 
----
+## 5. Security & Data Persistence
+- **`config/database.php`**: This file is added to `.gitignore`. Once you create it on your server (via the `/install/` wizard), it will NOT be overwritten by future GitHub pulls.
+- **Database**: Your MySQL database is safe on the server and is never touched by the Git deployment process.
+- **`.htaccess`**: Handles all routing for both React and PHP automatically.
 
-## ⚙️ Step 3: cPanel में Node.js App सेट करें (Node App Manager)
-1. cPanel डैशबोर्ड में खोजें: **Software** ➡️ **Setup Node.js App**
-2. **Create Application** बटन दबाएँ:
-   - **Node.js version**: `18.x` या `20.x` या `22.x` चुनें।
-   - **Application mode**: `Production`
-   - **Application root**: `public_html`
-   - **Application URL**: अपना मुख्य डोमेन (उदा. `https://yourdomain.com`) चुनें।
-   - **Application startup file**: `server.js`
-3. **Create** पर क्लिक करें।
-
----
-
-## 🔌 Step 4: Packages इंस्टॉल करें और ऐप स्टार्ट करें (NPM Install & Launch)
-1. ऐप बनने के बाद cPanel में **Run NPM Install** बटन पर क्लिक करें। (यह `better-sqlite3`, `express` आदि डिपेंडेंसी इंस्टॉल कर देगा)।
-2. यदि टर्मिनल उपलब्ध हो तो cPanel में दिखाए अनुसार Virtual Environment Command पेस्ट करके `npm install` चला सकते हैं।
-3. **Restart Application** बटन दबाएँ।
-
----
-
-## 🗄️ Step 5: Data Page और डेटाबेस (Database) ऑटो-सेटअप
-**आपको कोई भी अलग SQL डेटाबेस बनाने की आवश्यकता नहीं है!**
-- जैसे ही आप पहली बार अपने डोमेन (उदा. `https://yourdomain.com`) को खोलेंगे:
-  - `server.js` स्वचालित रूप से `reliance_pay.db` डेटाबेस फाइल बना देगा।
-  - सभी आवश्यक टेबल (`users`, `plans`, `transactions`, `deposits`, `withdrawals`, `settings`, `banners` आदि) ऑटोमैटिक बन जाएंगी।
-  - डिफ़ॉल्ट **Admin Account** और **Demo User Account** खुद-ब-खुद लोड हो जाएंगे:
-    - **Admin Login**: Mobile `9999999999` / Pass `admin123`
-    - **Demo User**: Mobile `9876543210` / Pass `password123`
-
----
-
-## ✅ वेबसाइट तैयार है!
-अब आपकी **Reliance Pay** वेबसाइट बिना किसी अतिरिक्त औपचारिकता (Formality) के 100% लाइव और फंक्शनल काम करेगी!
-
+## 6. Local Development Helper
+Use the provided `deploy_cpanel.sh` script to quickly prepare your code for the next push:
+```bash
+chmod +x deploy_cpanel.sh
+./deploy_cpanel.sh
+git add .
+git commit -m "Build: Production Update"
+git push origin main
+```
+Then simply click **Deploy** in your cPanel dashboard.

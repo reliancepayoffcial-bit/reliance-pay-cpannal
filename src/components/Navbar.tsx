@@ -56,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Wallet className="w-4 h-4 text-emerald-400 flex-shrink-0 group-hover:scale-110 transition-transform" />
               <div className="text-left">
                 <p className="text-[9px] sm:text-[10px] text-slate-400 font-medium leading-none">Balance</p>
-                <p className="text-xs sm:text-sm font-extrabold text-blue-400 leading-tight">₹{user.balance.toFixed(2)}</p>
+                <p className="text-xs sm:text-sm font-extrabold text-blue-400 leading-tight">₹{Number(user.balance || 0).toFixed(2)}</p>
               </div>
             </button>
             {onRefreshBalance && (

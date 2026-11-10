@@ -360,7 +360,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
           </div>
           <div className="bg-[#0B1220] p-2.5 rounded-2xl border border-slate-800">
             <p className="text-[10px] text-slate-400">TOTAL GAIN</p>
-            <p className="text-sm font-bold text-emerald-400 mt-0.5">+₹{(user.balance * 0.15).toFixed(0)}</p>
+            <p className="text-sm font-bold text-emerald-400 mt-0.5">+₹{(Number(user.balance || 0) * 0.15).toFixed(0)}</p>
           </div>
         </div>
 

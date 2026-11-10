@@ -75,8 +75,8 @@ export default function App() {
         .then(data => {
           if (data.success) {
             // Refresh user profile details if balance changed
-            if (data.user && (data.user.balance !== user.balance || data.user.deposited !== user.deposited)) {
-              setUser(prev => prev ? { ...prev, balance: data.user.balance, deposited: data.user.deposited } : null);
+            if (data.user && (Number(data.user.balance) !== Number(user.balance) || Number(data.user.deposited) !== Number(user.deposited))) {
+              setUser(prev => prev ? { ...prev, balance: Number(data.user.balance), deposited: Number(data.user.deposited) } : null);
             }
 
             if (Array.isArray(data.deposits)) {

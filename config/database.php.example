@@ -1,29 +1,24 @@
 <?php
 /**
- * Database Configuration Sample File for Reliance Pay
- * Copy this file to config/database.php or use the cPanel Installer wizard at /install/
+ * Reliance Pay - Production Database Configuration Template
+ * Rename this file to database.php and fill in your credentials.
+ * DO NOT commit the renamed database.php with real credentials to GitHub.
  */
 
-define('DB_HOST', 'localhost');
-define('DB_PORT', '3306');
-define('DB_NAME', 'reliance_pay');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+if (!defined('DB_HOST')) define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+if (!defined('DB_PORT')) define('DB_PORT', getenv('DB_PORT') ?: '3306');
+if (!defined('DB_NAME')) define('DB_NAME', getenv('DB_NAME') ?: 'YOUR_DATABASE_NAME');
+if (!defined('DB_USER')) define('DB_USER', getenv('DB_USER') ?: 'YOUR_DATABASE_USER');
+if (!defined('DB_PASS')) define('DB_PASS', getenv('DB_PASS') ?: 'YOUR_DATABASE_PASSWORD');
 
 /**
- * Returns PDO Database Connection
+ * Returns singleton PDO Database Connection
  * @return PDO
  */
 function getDbConnection(): PDO {
     static $pdo = null;
     if ($pdo === null) {
-        $host = defined('DB_HOST') ? DB_HOST : (getenv('DB_HOST') ?: 'localhost');
-        $port = defined('DB_PORT') ? DB_PORT : (getenv('DB_PORT') ?: '3306');
-        $db   = defined('DB_NAME') ? DB_NAME : (getenv('DB_NAME') ?: 'reliance_pay');
-        $user = defined('DB_USER') ? DB_USER : (getenv('DB_USER') ?: 'root');
-        $pass = defined('DB_PASS') ? DB_PASS : (getenv('DB_PASS') ?: '');
-
-        $dsn = "mysql:host={$host};port={$port};dbname={$db};charset=utf8mb4";
+        $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -31,12 +26,12 @@ function getDbConnection(): PDO {
         ];
 
         try {
-            $pdo = new PDO($dsn, $user, $pass, $options);
+            $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
             http_response_code(500);
             header('Content-Type: application/json');
             echo json_encode([
-                'error' => 'Database connection failed. Please ensure MySQL is running and database settings are configured in config/database.php.',
+                'error' => 'Database connection failed. Run installer at /install/ or configure config/database.php.',
                 'details' => $e->getMessage()
             ]);
             exit;

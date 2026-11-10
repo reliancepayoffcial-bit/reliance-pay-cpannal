@@ -1,0 +1,37 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/$(whoami)/public_html/
+    - /bin/mkdir -p $DEPLOYPATH
+    
+    # 1. Deploy Frontend (Built Assets)
+    # Note: These files are assumed to be in the 'dist' directory in the repo
+    # If using GitHub Actions to build, 'dist' should be committed or pushed to a deployment branch
+    - /bin/cp -R dist/* $DEPLOYPATH
+    
+    # 2. Deploy Backend (PHP API)
+    - /bin/mkdir -p $DEPLOYPATH/api
+    - /bin/cp -R api/* $DEPLOYPATH/api/
+    
+    # 3. Deploy Installer & Configuration
+    - /bin/mkdir -p $DEPLOYPATH/config
+    - /bin/cp config/database.php.example $DEPLOYPATH/config/
+    # Note: We do NOT overwrite existing config/database.php to protect credentials
+    - if [ ! -f $DEPLOYPATH/config/database.php ]; then /bin/cp config/database.php.example $DEPLOYPATH/config/database.php; fi
+    
+    - /bin/mkdir -p $DEPLOYPATH/database
+    - /bin/cp -R database/* $DEPLOYPATH/database/
+    
+    - /bin/mkdir -p $DEPLOYPATH/install
+    - /bin/cp -R install/* $DEPLOYPATH/install/
+    
+    # 4. Deploy Server Rules & Root Assets
+    - /bin/cp .htaccess $DEPLOYPATH/
+    - /bin/cp manifest.webmanifest $DEPLOYPATH/
+    - /bin/cp favicon.ico $DEPLOYPATH/
+    - /bin/cp apple-touch-icon.png $DEPLOYPATH/
+    
+    # 5. Set Permissions
+    - /bin/chmod 755 $DEPLOYPATH
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} +
+    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} +

@@ -1412,15 +1412,15 @@ export const WalletView: React.FC<WalletViewProps> = ({ user, onUpdateUser, show
             <div className="bg-[#0A0F1D] border border-slate-800 rounded-2xl p-4 space-y-2 text-xs">
               <div className="flex justify-between text-slate-400">
                 <span>Requested Withdrawal:</span>
-                <span className="font-bold text-white">₹{parsedAmount.toFixed(2)}</span>
+                <span className="font-bold text-white">₹{Number(parsedAmount || 0).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-slate-400">
                 <span>Platform Fee (10%):</span>
-                <span className="font-bold text-red-400">-₹{platformFee.toFixed(2)}</span>
+                <span className="font-bold text-red-400">-₹{Number(platformFee || 0).toFixed(2)}</span>
               </div>
               <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-sm">
                 <span className="font-bold text-slate-200">Net Received in Account:</span>
-                <span className="font-black text-emerald-400 text-base">₹{netReceived > 0 ? netReceived.toFixed(2) : '0.00'}</span>
+                <span className="font-black text-emerald-400 text-base">₹{netReceived > 0 ? Number(netReceived).toFixed(2) : '0.00'}</span>
               </div>
             </div>
 
@@ -1433,7 +1433,7 @@ export const WalletView: React.FC<WalletViewProps> = ({ user, onUpdateUser, show
                 : 'bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white shadow-pink-600/30'
               }`}
             >
-              <span>{user.kyc_required === 1 ? 'KYC Required for Withdrawal' : `Confirm Withdrawal of ₹${parsedAmount.toFixed(0)}`}</span>
+              <span>{user.kyc_required === 1 ? 'KYC Required for Withdrawal' : `Confirm Withdrawal of ₹${Number(parsedAmount || 0).toFixed(0)}`}</span>
               <ArrowUpRight className="w-5 h-5" />
             </button>
           </form>
@@ -1473,7 +1473,7 @@ export const WalletView: React.FC<WalletViewProps> = ({ user, onUpdateUser, show
                       <ArrowUpRight className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-white">₹{wd.amount.toFixed(2)} ({wd.method})</p>
+                      <p className="text-xs font-bold text-white">₹{Number(wd.amount || 0).toFixed(2)} ({wd.method})</p>
                       <p className="text-[11px] text-slate-400 font-mono truncate max-w-[180px] sm:max-w-md">{wd.account_details}</p>
                       <p className="text-[10px] text-slate-500">{new Date(wd.created_at).toLocaleString()}</p>
                     </div>
